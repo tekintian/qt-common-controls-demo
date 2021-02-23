@@ -54,6 +54,91 @@ ps: connect 可使用常规模式,或者使用ladbda模式, 推荐使用lambda�
 
 
 
+### 自定义控件提供外部API接口
+
+- mywidget.h
+
+  ~~~mywidget.h
+  public:
+      explicit MyWidget(QWidget *parent = nullptr);
+      ~MyWidget();
+  //  自定义控件外部接口定义
+      void mySetValue(int value);
+      int myGetValue(void);
+  
+  
+  ~~~
+
+- mywidget.cpp
+
+
+  ~~~mywidget.cpp
+  #include "mywidget.h"
+  #include "ui_mywidget.h"
+  #include<QSpinBox>
+  #include<QSlider>
+  
+  MyWidget::MyWidget(QWidget *parent) :
+      QWidget(parent),
+      ui(new Ui::MyWidget)
+  {
+      ui->setupUi(this);
+  
+      // spinbox的值改变,跟随改变进度条的值
+      // 因为QSpinBox::valueChanged 这个信号有重载,所以这里必须使用指针, 指明我们要使用的是 void valueChanged(int i)
+      void (QSpinBox::*sbptr)(int) = &QSpinBox::valueChanged;
+      connect(ui->spinBox, sbptr,ui->horizontalSlider,&QSlider::setValue);
+  
+      // 进度条的值改变, 跟随改变spinbox的值; 这里的信号&QSlider::valueChanged 无重载,所以可以直接使用
+      connect(ui->horizontalSlider,&QSlider::valueChanged,[=](int i){
+          ui->spinBox->setValue(i);
+      });
+  
+  }
+  
+  MyWidget::~MyWidget()
+  {
+      delete ui;
+  }
+  
+  //MyWidget外部接口实现
+  void MyWidget::mySetValue(int value)
+  {
+      // 设置进度条slider的值
+      ui->horizontalSlider->setValue(value);
+  }
+  
+  int MyWidget::myGetValue(void)
+  {
+      // 获取进度条的值
+      return ui->horizontalSlider->value();
+  }
+  
+  ~~~
+
+
+
+- mainwindow.cpp
+
+~~~mainwindow.cpp
+
+    //通过自定义控件的自定义外部接口获取自定义控件的进度条的值
+    connect(ui->pushButton_getApi, &QPushButton::clicked,[=](){
+        qDebug()<<"进度条的值:"<< ui->widget->myGetValue();
+    });
+
+    connect(ui->pushButton_setApi,&QPushButton::clicked,[=](){
+        ui->widget->mySetValue(99); // 通过自定义控件的api设置进度条的值
+    });
+
+~~~
+
+
+
+
+
+
+
 
 
 

@@ -150,6 +150,11 @@
       <height>71</height>
      </rect>
     </property>
+    <column>
+     <property name="text">
+      <string notr="true">1</string>
+     </property>
+    </column>
    </widget>
    <widget class="QTableWidget" name="tableWidgetUi">
     <property name="geometry">
@@ -307,8 +312,34 @@
       <x>410</x>
       <y>-10</y>
       <width>298</width>
-      <height>82</height>
+      <height>81</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_getApi">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>70</y>
+      <width>112</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>获取进度条</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_setApi">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>70</y>
+      <width>71</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设置99</string>
     </property>
    </widget>
   </widget>

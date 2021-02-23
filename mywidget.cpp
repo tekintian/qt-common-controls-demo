@@ -25,3 +25,16 @@ MyWidget::~MyWidget()
 {
     delete ui;
 }
+
+//MyWidget外部接口实现
+void MyWidget::mySetValue(int value)
+{
+    // 设置进度条slider的值
+    ui->horizontalSlider->setValue(value);
+}
+
+int MyWidget::myGetValue(void)
+{
+    // 获取进度条的值
+    return ui->horizontalSlider->value();
+}

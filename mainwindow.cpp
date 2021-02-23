@@ -153,6 +153,17 @@ MainWindow::MainWindow(QWidget *parent)
         movie->stop();
     });
 
+
+
+    //通过自定义控件的自定义外部接口获取自定义控件的进度条的值
+    connect(ui->pushButton_getApi, &QPushButton::clicked,[=](){
+        qDebug()<<"进度条的值:"<< ui->widget->myGetValue();
+    });
+
+    connect(ui->pushButton_setApi,&QPushButton::clicked,[=](){
+        ui->widget->mySetValue(99); // 通过自定义控件的api设置进度条的值
+    });
+
 }
 
 MainWindow::~MainWindow()

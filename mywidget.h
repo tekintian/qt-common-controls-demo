@@ -14,6 +14,10 @@ class MyWidget : public QWidget
 public:
     explicit MyWidget(QWidget *parent = nullptr);
     ~MyWidget();
+//  自定义控件外部接口定义
+    void mySetValue(int value);
+    int myGetValue(void);
+
 
 private:
     Ui::MyWidget *ui;
