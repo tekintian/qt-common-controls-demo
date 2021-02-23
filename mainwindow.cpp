@@ -7,6 +7,8 @@
 #include<QTableWidget>
 #include <QMovie>
 
+#include<QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -158,6 +160,9 @@ MainWindow::MainWindow(QWidget *parent)
     //通过自定义控件的自定义外部接口获取自定义控件的进度条的值
     connect(ui->pushButton_getApi, &QPushButton::clicked,[=](){
         qDebug()<<"进度条的值:"<< ui->widget->myGetValue();
+
+        QMessageBox::information(this,"自定义容器信息","进度条的值为:" + QString::number(ui->widget->myGetValue()) );
+
     });
 
     connect(ui->pushButton_setApi,&QPushButton::clicked,[=](){
